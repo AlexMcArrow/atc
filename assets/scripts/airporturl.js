@@ -1,23 +1,24 @@
 function airporturl_init() {
-    console.log('airporturl_init');
     if (localStorage['airporturl'] === undefined) {
         localStorage['airporturl'] = JSON.stringify({});
     }
     var STORAGE = JSON.parse(localStorage['airporturl']);
     for (var icao in STORAGE) {
-        airporturl_load(STORAGE[icao]);
+        airporturl_load(localStorage['au-' + icao]);
     }
 }
 
 function airporturl_set(icao, url) {
     var STORAGE = JSON.parse(localStorage['airporturl']);
-    STORAGE[icao] = url;
+    STORAGE[icao] = 1;
+    localStorage['au-' + icao] = url;
     localStorage['airporturl'] = JSON.stringify(STORAGE);
 }
 
 function airporturl_del(icao) {
     var STORAGE = JSON.parse(localStorage['airporturl']);
     delete STORAGE[icao];
+    delete localStorage['au-' + icao];
     localStorage['airporturl'] = JSON.stringify(STORAGE);
 }
 
